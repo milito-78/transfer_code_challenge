@@ -15,6 +15,9 @@ class UserRepository implements IUserRepository
         return User::query();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function findUserByMobile(string $mobile): ?UserEntity
     {
         /**
@@ -27,6 +30,26 @@ class UserRepository implements IUserRepository
         return $this->wrapWithEntity($user);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function findUserById(int $id): ?UserEntity
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->query()->where("id", "=", $id)->first();
+
+        if (!$user)
+            return null;
+        return $this->wrapWithEntity($user);
+    }
+
+
+    /**
+     * @param User $user
+     * @return UserEntity
+     */
     private function wrapWithEntity(User $user): UserEntity
     {
         return $user->toEntity();

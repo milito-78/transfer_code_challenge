@@ -13,4 +13,12 @@ interface IUserRepository
      * @return UserEntity|null
      */
     public function findUserByMobile(string $mobile): ?UserEntity;
+
+    /**
+     * Find user by id
+     *
+     * @param int $id
+     * @return UserEntity|null
+     */
+    public function findUserById(int $id): ?UserEntity;
 }
