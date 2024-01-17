@@ -3,11 +3,22 @@
 namespace App\Infrastructure\Database\Mysql\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Entities\UserEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
+
+/**
+ * @property int $id
+ * @property string $name,
+ * @property string $mobile,
+ * @property string $password,
+ * @property Carbon $created_at,
+ * @property Carbon $updated_at,
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -19,7 +30,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'mobile',
         'password',
     ];
 
@@ -42,4 +53,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+
+    public function toEntity() : UserEntity
+    {
+        return new UserEntity(
+            $this->id,$this->name,$this->mobile,$this->created_at,$this->updated_at
+        );
+    }
+
+    public static function fromEntity(UserEntity $userEntity) : User
+    {
+        $user               = new User();
+        $user->id           = $userEntity->id;
+        $user->name         = $userEntity->name;
+        $user->mobile       = $userEntity->mobile;
+        $user->created_at   = $userEntity->created_at;
+        $user->updated_at   = $userEntity->updated_at;
+        return $user;
+    }
 }
