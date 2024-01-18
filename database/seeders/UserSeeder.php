@@ -13,16 +13,16 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //Seed first user
-        User::query()->create([
+        $first = User::query()->create([
             'name'              => "first user",
-            'mobile'            => "09360875937",
+            'mobile'            => "091422222222",
             'password' => bcrypt("password"),
         ]);
 
         //Seed second user
-        User::query()->create([
+        $second = User::query()->create([
             'name'              => "second user",
-            'mobile'            => "09148449105",
+            'mobile'            => "091411111111",
             'password' => bcrypt("password_2"),
         ]);
     }

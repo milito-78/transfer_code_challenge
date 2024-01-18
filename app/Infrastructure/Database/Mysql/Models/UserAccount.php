@@ -4,6 +4,7 @@ namespace App\Infrastructure\Database\Mysql\Models;
 
 use App\Entities\Enums\UserAccountStatusEnums;
 use App\Entities\UserAccountEntity;
+use Database\Factories\UserAccountFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,12 @@ use Illuminate\Support\Carbon;
 class UserAccount extends Model
 {
     use HasFactory;
+
+
+    protected static function newFactory()
+    {
+        return app()->make(UserAccountFactory::class);
+    }
 
     protected $appends = [
         "status"

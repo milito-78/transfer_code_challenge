@@ -2,20 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Infrastructure\Database\Mysql\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Infrastructure\Database\Mysql\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<User>
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
+    protected $model = User::class;
     /**
      * Define the model's default state.
      *
@@ -26,7 +23,7 @@ class UserFactory extends Factory
         return [
             'name'          => fake()->name(),
             'mobile'        => fake()->unique()->phoneNumber(),
-            'password'      => static::$password ??= Hash::make('password'),
+            'password'      => Hash::make('password'),
             'remember_token'=> Str::random(10),
         ];
     }

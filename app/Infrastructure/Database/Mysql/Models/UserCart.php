@@ -4,6 +4,7 @@ namespace App\Infrastructure\Database\Mysql\Models;
 
 use App\Entities\Enums\UserCartStatusEnums;
 use App\Entities\UserCartEntity;
+use Database\Factories\UserCartFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +26,11 @@ use Illuminate\Support\Carbon;
 class UserCart extends Model
 {
     use HasFactory;
+
+    protected static function newFactory()
+    {
+        return app()->make(UserCartFactory::class);
+    }
 
     protected $appends = ["status"];
     protected $fillable = ["user_id","account_id" ,"cart_number" , "status_id"];
