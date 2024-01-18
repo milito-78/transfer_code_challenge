@@ -41,7 +41,7 @@ class CardTransferController extends Controller
 
 
 
-        if (!$this->transactionService->hasEnoughInAccount($origin->account_id,$amount)) {
+        if (!$this->transactionService->hasEnoughBalanceInAccount($origin->account_id,$amount)) {
             throw ValidationException::withMessages([
                 "amount" => "You don't have enough amount "
             ]);
@@ -56,7 +56,13 @@ class CardTransferController extends Controller
             ],500);
         }
 
-        //TODO send message
+        if (!$transaction){
+            return response()->json([
+                "message" => "Transfer is not successful."
+            ],500);
+        }
+        //TODO send sms
+
         return response()->json([
             "message" => "successfully done",
             "data" => [

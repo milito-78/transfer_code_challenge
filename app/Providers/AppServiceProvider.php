@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Infrastructure\Database\Mysql\CardRepository;
+use App\Infrastructure\Database\Mysql\TransactionRepository;
 use App\Infrastructure\Database\Mysql\UserRepository;
 use App\Infrastructure\Repositories\ICardRepository;
+use App\Infrastructure\Repositories\ITransactionRepository;
 use App\Infrastructure\Repositories\IUserRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -41,5 +43,6 @@ class AppServiceProvider extends ServiceProvider
         //UserRepository
         $this->app->bind(IUserRepository::class,UserRepository::class);
         $this->app->bind(ICardRepository::class,CardRepository::class);
+        $this->app->bind(ITransactionRepository::class,TransactionRepository::class);
     }
 }

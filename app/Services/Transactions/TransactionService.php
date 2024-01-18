@@ -2,14 +2,21 @@
 
 namespace App\Services\Transactions;
 
-use App\Entities\Enums\TransactionEntity;
+use App\Entities\TransactionEntity;
+use App\Infrastructure\Repositories\ITransactionRepository;
 
 class TransactionService
 {
-    public function hasEnoughInAccount(int $account_id, string $amount): bool
+    public function __construct(
+        private readonly ITransactionRepository $transactionRepository
+    )
     {
-        //TODO transaction service
-        return true;
+    }
+
+    public function hasEnoughBalanceInAccount(int $account_id, string $amount): bool
+    {
+        $balance = $this->transactionRepository->getBalanceForAccount($account_id);
+        return ($balance - $amount) > 0;
     }
 
     public function transferAmountByCard(
@@ -18,10 +25,17 @@ class TransactionService
         int $destination_account_id,
         int $destination_card_id,
         int $amount
-    ) : object
+    ) : ?TransactionEntity
     {
         $fee = 500;
-        return new TransactionEntity(1,$amount - $fee,"tracking_code", $fee);
+        return $this->transactionRepository->createTransferAmountByCard(
+            $card_id,
+            $account_id,
+            $amount,
+            $fee,
+            $destination_card_id,
+            $destination_account_id
+        );
     }
 
 }
