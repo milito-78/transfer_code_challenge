@@ -9,6 +9,7 @@ use App\Infrastructure\Database\Mysql\Models\Transaction;
 use App\Infrastructure\Database\Mysql\Models\TransactionFee;
 use App\Infrastructure\Repositories\ITransactionRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -25,16 +26,18 @@ class TransactionRepository implements ITransactionRepository
     {
         try {
             $tracking_code = Str::random() . now()->micro;
-
+            $pure_amount = $amount - $fee;
             DB::beginTransaction();
+            /**
+             * @var Transaction $transaction
+             */
             $transaction = $this->query()->create([
                 "tracking_code"         => $tracking_code,
                 "card_id"               => $card,
-                "account_id"            => $account,
                 "destination_card_id"   => $dest_card,
                 "status_id"             => TransactionStatusEnums::Success->value,
                 "amount"                => $amount,
-                "pure_amount"           => $amount - $fee,
+                "pure_amount"           => $pure_amount,
                 "fee_amount"            => $fee,
                 "type"                  => TransactionTypeEnums::Decrease,
             ]);
@@ -42,12 +45,10 @@ class TransactionRepository implements ITransactionRepository
             $this->query()->create([
                 "tracking_code"         => $tracking_code,
                 "card_id"               => $dest_card,
-                "account_id"            => $dest_account,
-                "destination_card_id"   => $card,
                 "status_id"             => TransactionStatusEnums::Success->value,
-                "amount"                => $amount,
-                "pure_amount"           => $amount - $fee,
-                "fee_amount"            => $fee,
+                "amount"                => $pure_amount,
+                "pure_amount"           => $pure_amount,
+                "fee_amount"            => 0,
                 "reason_id"             => $transaction->id,
                 "type"                  => TransactionTypeEnums::Increase,
             ]);
@@ -56,12 +57,49 @@ class TransactionRepository implements ITransactionRepository
                 "amount" => $fee
             ]);
             DB::commit();
+
             return $this->wrapWithEntity($transaction);
         }catch (\Exception $exception){
             DB::rollBack();
             logger()->error("Error during transaction : ".$exception->getMessage(),["context" => $exception]);
             return null;
         }
+    }
+
+    public function getBalanceForAccount($account_id): int
+    {
+        return $this->query()->where("account_id" ,$account_id)->sum(DB::raw("CAST( amount AS SIGNED ) * type"));
+    }
+
+    public function getTransactionsForUsersLimit(array $cards, int $limit): Collection
+    {
+        $transactions = DB::select("select t.*
+            from (select t.*,
+                         row_number() over (partition by card_id order by created_at desc) as num
+                  from transactions t
+                 ) t
+            where num <= ? and t.card_id in (?) and reason_id is null;",
+            [$limit,implode(",",$cards)]
+        );
+
+        $data = collect();
+        foreach ($transactions as $transaction){
+            $data->push(new TransactionEntity(
+                $transaction->id,
+                $transaction->amount,
+                $transaction->pure_amount,
+                $transaction->tracking_code,
+                $transaction->card_id,
+                $transaction->destination_card_id,
+                $transaction->fee_amount,
+                TransactionStatusEnums::from($transaction->status_id),
+                TransactionTypeEnums::from($transaction->type),
+                )
+            );
+        }
+
+
+        return $data;
     }
 
     /**
@@ -71,10 +109,5 @@ class TransactionRepository implements ITransactionRepository
     private function wrapWithEntity(Transaction $transaction): TransactionEntity
     {
         return $transaction->toEntity();
-    }
-
-    public function getBalanceForAccount($account_id): int
-    {
-        return $this->query()->where("account_id" ,$account_id)->sum(DB::raw("CAST( amount AS SIGNED ) * type"));
     }
 }

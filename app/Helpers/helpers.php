@@ -23,7 +23,8 @@ if (!function_exists("purifier_to_english")){
 }
 
 if (!function_exists("is_card_number_valid")){
-    function is_card_number_valid($cardNumber) {
+    function is_card_number_valid($cardNumber): bool
+    {
         if(empty($cardNumber) || strlen($cardNumber) !== 16) {
             return false;
         }

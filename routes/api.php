@@ -19,4 +19,6 @@ Route::group(["prefix" => "v1"],function (){
     Route::group(["prefix" => "transfers"],function (){
         Route::post("card-to-card", [CardTransferController::class,"transferByCardToCard"]);
     });
+
+    Route::get("top-users",[\App\Http\Controllers\Api\V1\TopUserTransactionController::class,"topUsers"]);
 });

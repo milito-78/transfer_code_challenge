@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 
@@ -17,6 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name,
  * @property string $mobile,
  * @property string $password,
+ * @property Collection $cards,
  * @property Carbon $created_at,
  * @property Carbon $updated_at,
  */
@@ -61,11 +63,27 @@ class User extends Authenticatable
     ];
 
 
+    public function cards(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserCard::class);
+    }
+
 
     public function toEntity() : UserEntity
     {
         return new UserEntity(
-            $this->id,$this->name,$this->mobile,$this->created_at,$this->updated_at
+            $this->id,
+            $this->name,
+            $this->mobile,
+            $this->created_at,
+            $this->updated_at,
+            $this->load("cards")
+                ?
+                $this->cards->map(function (UserCard $card){
+                    return $card->toEntity();
+                })
+                :
+                null
         );
     }
 

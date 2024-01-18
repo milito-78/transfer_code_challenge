@@ -4,6 +4,7 @@ namespace App\Services\Transactions;
 
 use App\Entities\TransactionEntity;
 use App\Infrastructure\Repositories\ITransactionRepository;
+use Illuminate\Support\Collection;
 
 class TransactionService
 {
@@ -36,6 +37,11 @@ class TransactionService
             $destination_card_id,
             $destination_account_id
         );
+    }
+
+    public function getLimitTransactionsForUsers(array $cards,int $limit) : Collection
+    {
+        return $this->transactionRepository->getTransactionsForUsersLimit($cards,$limit);
     }
 
 }

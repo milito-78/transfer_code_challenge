@@ -4,6 +4,7 @@ namespace App\Infrastructure\Repositories;
 
 
 use App\Entities\TransactionEntity;
+use Illuminate\Support\Collection;
 
 interface ITransactionRepository
 {
@@ -21,4 +22,15 @@ interface ITransactionRepository
 
 
     public function getBalanceForAccount($account_id):int;
+
+
+    /**
+     * Get users transaction by id
+     *
+     * @param array<integer> $cards
+     * @param int $limit
+     * @return Collection
+     */
+    public function getTransactionsForUsersLimit(array $cards,int $limit):Collection;
+
 }

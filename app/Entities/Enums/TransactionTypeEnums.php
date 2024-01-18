@@ -2,9 +2,9 @@
 
 namespace App\Entities\Enums;
 
-enum TransactionTypeEnums : string
+enum TransactionTypeEnums : int
 {
-    case Decrease = "-1";
-    case Increase = "1";
+    case Decrease = -1;
+    case Increase = 1;
 
 }

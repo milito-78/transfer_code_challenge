@@ -2,7 +2,9 @@
 
 namespace App\Infrastructure\Repositories;
 
+use App\Entities\UserCardEntity;
 use App\Entities\UserEntity;
+use Illuminate\Support\Collection;
 
 interface IUserRepository
 {
@@ -21,4 +23,18 @@ interface IUserRepository
      * @return UserEntity|null
      */
     public function findUserById(int $id): ?UserEntity;
+
+    /**
+     * Get card by card number
+     * @param string $card_number
+     * @return UserCardEntity|null
+     */
+    public function getByCardNumber(string $card_number): ?UserCardEntity;
+
+    /**
+     * Get top three
+     *
+     * @return Collection<UserEntity>
+     */
+    public function getTopThreeUserTransactor():Collection;
 }

@@ -20,20 +20,9 @@ return new class extends Migration
                 ->on("user_cards")
                 ->references("id");
 
-            $table->unsignedBigInteger('account_id');
-            $table->foreign("account_id")
-                ->on("user_accounts")
-                ->references("id");
-
-
             $table->unsignedBigInteger('destination_card_id')->nullable();
             $table->foreign("destination_card_id")
                 ->on("user_cards")
-                ->references("id");
-
-            $table->unsignedBigInteger('destination_account_id');
-            $table->foreign("destination_account_id")
-                ->on("user_accounts")
                 ->references("id");
 
             $table->unsignedBigInteger('status_id');

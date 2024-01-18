@@ -30,9 +30,6 @@ class UserAccount extends Model
         return app()->make(UserAccountFactory::class);
     }
 
-    protected $appends = [
-        "status"
-    ];
 
     protected $fillable = [
         "id", "user_id" , "account_number", "status_id"
@@ -42,6 +39,11 @@ class UserAccount extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function transactions()
+    {
+        return $this->belongsTo(Transaction::class,"account_id");
     }
 
     public function getStatusAttribute() : UserAccountStatusEnums

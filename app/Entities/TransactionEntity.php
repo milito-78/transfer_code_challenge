@@ -13,8 +13,7 @@ class TransactionEntity
         public int $pure_amount,
         public string $tracking_code,
         public int $card_id,
-        public int $account_id,
-        public int $dest_card_id,
+        public ?int $dest_card_id,
         public int $fee,
         public TransactionStatusEnums $status,
         public TransactionTypeEnums $type
