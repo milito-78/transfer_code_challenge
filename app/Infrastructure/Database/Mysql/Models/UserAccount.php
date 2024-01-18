@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Database\Mysql\Models;
 
 use App\Entities\Enums\UserAccountStatusEnums;
+use App\Entities\UserAccountEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,4 +42,29 @@ class UserAccount extends Model
         return UserAccountStatusEnums::from($this->status_id);
     }
 
+
+    public function toEntity() : UserAccountEntity
+    {
+        return new UserAccountEntity(
+            $this->id,
+            $this->user_id,
+            $this->account_number,
+            $this->status,
+            $this->created_at,
+            $this->updated_at,
+            $this->relationLoaded("user") ? $this->user : null,
+        );
+    }
+
+    public static function fromEntity(UserAccountEntity $entity) : self
+    {
+        $data                   = new self();
+        $data->id               = $entity->id;
+        $data->user_id          = $entity->user_id;
+        $data->account_number   = $entity->account_number;
+        $data->status_id        = $entity->status->value;
+        $data->created_at       = $entity->created_at;
+        $data->updated_at       = $entity->updated_at;
+        return $data;
+    }
 }

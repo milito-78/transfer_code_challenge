@@ -3,7 +3,6 @@
 namespace App\Entities;
 
 use Illuminate\Support\Carbon;
-use function Laravel\Prompts\password;
 
 class UserEntity
 {
