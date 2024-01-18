@@ -11,7 +11,7 @@ class UserCartEntity
         public int $id,
         public int $user_id,
         public int $account_id,
-        public string $cart_number,
+        public string $card_number,
         public UserCartStatusEnums $status,
         public Carbon $expired_at,
         public Carbon $created_at,

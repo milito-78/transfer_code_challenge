@@ -22,7 +22,7 @@ return new class extends Migration
                 ->on("user_accounts")
                 ->references("id");
 
-            $table->string("cart_number")->unique();
+            $table->string("card_number")->unique();
 
             $table->unsignedBigInteger('status_id');
             $table->foreign("status_id")

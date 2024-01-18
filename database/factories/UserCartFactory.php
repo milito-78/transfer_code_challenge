@@ -30,7 +30,7 @@ class UserCartFactory extends Factory
         return [
             "user_id"           => $account->user_id,
             "account_id"        => $account->id,
-            "cart_number"       => $this->faker->creditCardNumber(),
+            "card_number"       => $this->faker->creditCardNumber(),
             "expired_at"        => Carbon::now()->addYears(),
             "status_id"         => UserCartStatusEnums::Active->value,
         ];

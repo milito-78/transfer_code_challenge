@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property UserAccount $account
  * @property int $status_id,
  * @property UserCartStatusEnums $status,
- * @property string $cart_number
+ * @property string $card_number
  * @property Carbon $expired_at
  * @property Carbon $created_at
  * @property Carbon $updated_at,
@@ -33,7 +33,7 @@ class UserCart extends Model
     }
 
     protected $appends = ["status"];
-    protected $fillable = ["user_id","account_id" ,"cart_number" , "status_id"];
+    protected $fillable = ["user_id","account_id" ,"card_number" , "status_id"];
 
     public function account(): BelongsTo
     {
@@ -57,7 +57,7 @@ class UserCart extends Model
             $this->id,
             $this->user_id,
             $this->account_id,
-            $this->cart_number,
+            $this->card_number,
             $this->status,
             $this->expired_at,
             $this->created_at,
@@ -73,7 +73,7 @@ class UserCart extends Model
         $data->id           = $entity->id;
         $data->user_id      = $entity->user_id;
         $data->account_id   = $entity->account_id;
-        $data->cart_number  = $entity->cart_number;
+        $data->card_number  = $entity->card_number;
         $data->status       = $entity->status;
         $data->expired_at   = $entity->expired_at;
         $data->created_at   = $entity->created_at;
