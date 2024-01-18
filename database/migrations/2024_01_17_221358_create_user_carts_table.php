@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_carts', function (Blueprint $table) {
+        Schema::create('user_cards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign("user_id")
@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('status_id');
             $table->foreign("status_id")
-                ->on("user_carts_statuses")
+                ->on("user_cards_statuses")
                 ->references("id");
 
             $table->timestamp("expired_at");
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_carts');
+        Schema::dropIfExists('user_cards');
     }
 };

@@ -1,7 +1,7 @@
 <?php
 
-use App\Entities\Enums\UserCartStatusEnums;
-use App\Infrastructure\Database\Mysql\Models\UserCartStatus;
+use App\Entities\Enums\UserCardStatusEnums;
+use App\Infrastructure\Database\Mysql\Models\UserCardStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,20 +13,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_carts_statuses', function (Blueprint $table) {
+        Schema::create('user_cards_statuses', function (Blueprint $table) {
             $table->id();
             $table->string("title");
             $table->timestamps();
         });
 
-        UserCartStatus::query()->insert([
+        UserCardStatus::query()->insert([
             [
-                "id" => UserCartStatusEnums::Active,
-                "title" =>  UserCartStatusEnums::Active->name,
+                "id" => UserCardStatusEnums::Active,
+                "title" =>  UserCardStatusEnums::Active->name,
             ],
             [
-                "id" => UserCartStatusEnums::InActive,
-                "title" =>  UserCartStatusEnums::InActive->name,
+                "id" => UserCardStatusEnums::InActive,
+                "title" =>  UserCardStatusEnums::InActive->name,
             ],
         ]);
     }
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_carts_statuses');
+        Schema::dropIfExists('user_cards_statuses');
     }
 };

@@ -2,7 +2,7 @@
 
 namespace App\Entities\Enums;
 
-enum UserCartStatusEnums : int
+enum UserCardStatusEnums : int
 {
     case Active = 1;
     case InActive = 2;

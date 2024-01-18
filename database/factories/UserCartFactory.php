@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Entities\Enums\UserCartStatusEnums;
+use App\Entities\Enums\UserCardStatusEnums;
 use App\Infrastructure\Database\Mysql\Models\UserAccount;
-use App\Infrastructure\Database\Mysql\Models\UserCart;
+use App\Infrastructure\Database\Mysql\Models\UserCard;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<UserCart>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<UserCard>
  */
 class UserCartFactory extends Factory
 {
-    protected $model = UserCart::class;
+    protected $model = UserCard::class;
 
     /**
      * Define the model's default state.
@@ -32,7 +32,7 @@ class UserCartFactory extends Factory
             "account_id"        => $account->id,
             "card_number"       => $this->faker->creditCardNumber(),
             "expired_at"        => Carbon::now()->addYears(),
-            "status_id"         => UserCartStatusEnums::Active->value,
+            "status_id"         => UserCardStatusEnums::Active->value,
         ];
     }
 }

@@ -2,22 +2,22 @@
 
 namespace App\Entities;
 
-use App\Entities\Enums\UserCartStatusEnums;
+use App\Entities\Enums\UserCardStatusEnums;
 use Illuminate\Support\Carbon;
 
-class UserCartEntity
+class UserCardEntity
 {
     public function __construct(
-        public int $id,
-        public int $user_id,
-        public int $account_id,
-        public string $card_number,
-        public UserCartStatusEnums $status,
-        public Carbon $expired_at,
-        public Carbon $created_at,
-        public Carbon $updated_at,
-        public ?UserEntity $user = null,
-        public ?UserAccountEntity $account = null,
+        public int                 $id,
+        public int                 $user_id,
+        public int                 $account_id,
+        public string              $card_number,
+        public UserCardStatusEnums $status,
+        public Carbon              $expired_at,
+        public Carbon              $created_at,
+        public Carbon              $updated_at,
+        public ?UserEntity         $user = null,
+        public ?UserAccountEntity  $account = null,
     )
     {
     }
