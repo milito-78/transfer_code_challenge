@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "421398f9-c885-45f3-9e34-dae93c569f9c",
+		"name": "Snapp Shop Code Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10700969"
+	},
+	"item": [
+		{
+			"name": "Transfer cart to cart",
+			"request": {
+				"auth": {
+					"type": "basic"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"origin_card_number\" : \"3528413185345594\",\n    \"destination_card_number\" : \"4929048107443656\",\n    \"amount\" : \"5000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/transfers/card-to-card",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"transfers",
+						"card-to-card"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Transfer cart to cart",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"origin_card_number\" : \"3528413185345594\",\n    \"destination_card_number\" : \"4929048107443656\",\n    \"amount\" : \"5000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/transfers/card-to-card",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"transfers",
+								"card-to-card"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.25"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2024 09:28:29 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"successfully done\",\n    \"data\": {\n        \"id\": 23,\n        \"card_id\": 1,\n        \"destination_card_id\": 2,\n        \"amount\": 5000,\n        \"pure_amount\": 4500,\n        \"fee\": 500,\n        \"tracking_code\": \"SumVfbviZAsp1Zff475001\",\n        \"status_id\": 2,\n        \"status_label\": \"Success\",\n        \"type_id\": -1,\n        \"type_label\": \"Decrease\",\n        \"created_at\": \"2024-01-19 09:28:29\",\n        \"updated_at\": \"2024-01-19 09:28:29\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Top Transactor Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/v1/top-users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"top-users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/top-users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"top-users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.25"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2024 09:18:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "56"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"successful\",\n    \"data\": [\n        {\n            \"id\": 3,\n            \"name\": \"Dr. Aubrey Runolfsdottir DDS\",\n            \"transactions\": [\n                {\n                    \"id\": 21,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5000,\n                    \"pure_amount\": 4500,\n                    \"fee\": 500,\n                    \"tracking_code\": \"Nsn7JVO1GYxN1IZA78825\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 09:18:48\",\n                    \"updated_at\": \"2024-01-19 09:18:48\"\n                },\n                {\n                    \"id\": 3,\n                    \"card_id\": 3,\n                    \"card\": {\n                        \"id\": 3,\n                        \"card_number\": \"2388885889447993\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 6,\n                    \"pure_amount\": 1,\n                    \"fee\": 5,\n                    \"tracking_code\": \"Zd7PnkFxuWPwkF8L2vC3\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": 1,\n                    \"type_label\": \"Increase\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 10,\n                    \"card_id\": 7,\n                    \"card\": {\n                        \"id\": 7,\n                        \"card_number\": \"4716587433842963\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 3,\n                    \"destination_card\": {\n                        \"id\": 3,\n                        \"card_number\": \"2388885889447993\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5,\n                    \"pure_amount\": 7,\n                    \"fee\": 6,\n                    \"tracking_code\": \"1uUQGXOkPZ6YXqW6LTPY\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": 1,\n                    \"type_label\": \"Increase\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 19,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5000,\n                    \"pure_amount\": 4500,\n                    \"fee\": 500,\n                    \"tracking_code\": \"Qn1fG6mkvIn3P0Wf93541\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 09:07:27\",\n                    \"updated_at\": \"2024-01-19 09:07:27\"\n                },\n                {\n                    \"id\": 17,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5000,\n                    \"pure_amount\": 4500,\n                    \"fee\": 500,\n                    \"tracking_code\": \"B7N6ZI7FimVF4Icw235088\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 09:06:43\",\n                    \"updated_at\": \"2024-01-19 09:06:43\"\n                },\n                {\n                    \"id\": 15,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5000,\n                    \"pure_amount\": 4500,\n                    \"fee\": 500,\n                    \"tracking_code\": \"wOiicdrQ9kGVH8wD46635\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 08:56:05\",\n                    \"updated_at\": \"2024-01-19 08:56:05\"\n                },\n                {\n                    \"id\": 13,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5000,\n                    \"pure_amount\": 4500,\n                    \"fee\": 500,\n                    \"tracking_code\": \"0kS0XtsOO1WMKiuG565680\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 08:55:14\",\n                    \"updated_at\": \"2024-01-19 08:55:14\"\n                },\n                {\n                    \"id\": 11,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5000,\n                    \"pure_amount\": 4500,\n                    \"fee\": 500,\n                    \"tracking_code\": \"kdWLZxJ1QhDfIcDT63026\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 08:53:10\",\n                    \"updated_at\": \"2024-01-19 08:53:10\"\n                },\n                {\n                    \"id\": 6,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 10,\n                    \"destination_card\": {\n                        \"id\": 10,\n                        \"card_number\": \"2381472872484940\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 7,\n                    \"pure_amount\": 8,\n                    \"fee\": 6,\n                    \"tracking_code\": \"tHe4XjYx8pzhT8NDE4QG\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 9,\n                    \"card_id\": 2,\n                    \"card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 5,\n                    \"destination_card\": {\n                        \"id\": 5,\n                        \"card_number\": \"3528216776147042\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 9,\n                    \"pure_amount\": 8,\n                    \"fee\": 5,\n                    \"tracking_code\": \"LhqXtjpPM2UoCF5IvzCf\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 1,\n                    \"card_id\": 1,\n                    \"card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 3,\n                    \"destination_card\": {\n                        \"id\": 3,\n                        \"card_number\": \"2388885889447993\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 500000,\n                    \"pure_amount\": 500000,\n                    \"fee\": 0,\n                    \"tracking_code\": \"iICgI5Ey0IgI9MPX25IG\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": 1,\n                    \"type_label\": \"Increase\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                }\n            ],\n            \"created_at\": \"2024-01-19 01:27:08\",\n            \"updated_at\": \"2024-01-19 01:27:08\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Chelsey Grady\",\n            \"transactions\": [\n                {\n                    \"id\": 7,\n                    \"card_id\": 4,\n                    \"card\": {\n                        \"id\": 4,\n                        \"card_number\": \"6011696258899946\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 2,\n                    \"destination_card\": {\n                        \"id\": 2,\n                        \"card_number\": \"4929048107443656\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 5,\n                    \"pure_amount\": 3,\n                    \"fee\": 2,\n                    \"tracking_code\": \"71gwV4Dy6xOv9lKYfsdx\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 4,\n                    \"card_id\": 8,\n                    \"card\": {\n                        \"id\": 8,\n                        \"card_number\": \"4532879939145039\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 7,\n                    \"destination_card\": {\n                        \"id\": 7,\n                        \"card_number\": \"4716587433842963\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 3,\n                    \"pure_amount\": 3,\n                    \"fee\": 2,\n                    \"tracking_code\": \"2u2GEWAXNfBppdZeHoHQ\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 5,\n                    \"card_id\": 4,\n                    \"card\": {\n                        \"id\": 4,\n                        \"card_number\": \"6011696258899946\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 8,\n                    \"destination_card\": {\n                        \"id\": 8,\n                        \"card_number\": \"4532879939145039\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 1,\n                    \"pure_amount\": 7,\n                    \"fee\": 8,\n                    \"tracking_code\": \"CaYN4p0z6ZE60BSR7SGD\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": 1,\n                    \"type_label\": \"Increase\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                },\n                {\n                    \"id\": 2,\n                    \"card_id\": 8,\n                    \"card\": {\n                        \"id\": 8,\n                        \"card_number\": \"4532879939145039\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 1,\n                    \"destination_card\": {\n                        \"id\": 1,\n                        \"card_number\": \"3528413185345594\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 6,\n                    \"pure_amount\": 5,\n                    \"fee\": 2,\n                    \"tracking_code\": \"bA4DGvOnXUDqVhX3ataH\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                }\n            ],\n            \"created_at\": \"2024-01-19 01:27:08\",\n            \"updated_at\": \"2024-01-19 01:27:08\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Jamil Hessel III\",\n            \"transactions\": [\n                {\n                    \"id\": 8,\n                    \"card_id\": 5,\n                    \"card\": {\n                        \"id\": 5,\n                        \"card_number\": \"3528216776147042\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"destination_card_id\": 9,\n                    \"destination_card\": {\n                        \"id\": 9,\n                        \"card_number\": \"4539313329284862\",\n                        \"status_id\": 1,\n                        \"status_label\": \"Active\",\n                        \"expired_at\": \"2025-01-19 00:00:00\"\n                    },\n                    \"amount\": 9,\n                    \"pure_amount\": 1,\n                    \"fee\": 6,\n                    \"tracking_code\": \"mZnktJbHfxhNcXkPZqIu\",\n                    \"status_id\": 2,\n                    \"status_label\": \"Success\",\n                    \"type_id\": -1,\n                    \"type_label\": \"Decrease\",\n                    \"created_at\": \"2024-01-19 01:27:08\",\n                    \"updated_at\": \"2024-01-19 01:27:08\"\n                }\n            ],\n            \"created_at\": \"2024-01-19 01:27:08\",\n            \"updated_at\": \"2024-01-19 01:27:08\"\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
