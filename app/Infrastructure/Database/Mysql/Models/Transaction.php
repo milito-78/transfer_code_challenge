@@ -8,13 +8,16 @@ use App\Entities\TransactionEntity;
 use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property string $tracking_code
  * @property int $card_id
+ * @property UserCard $card
  * @property int $destination_card_id
+ * @property UserCard $destination_card
  * @property int $status_id
  * @property TransactionStatusEnums $status
  * @property TransactionTypeEnums $type
@@ -56,6 +59,16 @@ class Transaction extends Model
     ];
 
 
+    public function card(): BelongsTo
+    {
+        return $this->belongsTo(UserCard::class);
+    }
+
+    public function destination_card(): BelongsTo
+    {
+        return $this->belongsTo(UserCard::class,"destination_card_id");
+    }
+
     public function getStatusAttribute() : TransactionStatusEnums
     {
         return TransactionStatusEnums::from($this->status_id);
@@ -72,7 +85,11 @@ class Transaction extends Model
             $this->destination_card_id,
             $this->fee_amount,
             $this->status,
-            $this->type
+            $this->type,
+            $this->created_at,
+            $this->updated_at,
+            $this->relationLoaded("card") ? $this->card->toEntity() : null,
+            $this->relationLoaded("destination_card") ? $this->destination_card->toEntity() : null,
         );
     }
 

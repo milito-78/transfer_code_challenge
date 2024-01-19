@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Entities\UserEntity;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\V1\UserResourceCollection;
 use App\Services\Transactions\TransactionService;
 use App\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
@@ -37,13 +38,10 @@ class TopUserTransactionController extends Controller
 
         $users->each(function (UserEntity $entity) use($transactions){
             $found          = $transactions->whereIn("card_id", $entity->cards->toArray());
-            $entity->cards  = collect();
+            $entity->cards  = null;
             $entity->transactions = $found->values();
         });
 
-        return response()->json([
-            "message" => "successful",
-            "data" => $users
-        ]);
+        return json_success("Successful",new UserResourceCollection($users));
     }
 }

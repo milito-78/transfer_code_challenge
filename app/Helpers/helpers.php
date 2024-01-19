@@ -1,6 +1,8 @@
 <?php
 
 
+use Illuminate\Support\Carbon;
+
 if (!function_exists("purifier_to_english")){
     function purifier_to_english(?string $value) : string{
         if (!$value)
@@ -39,5 +41,57 @@ if (!function_exists("is_card_number_valid")){
             }
         }
         return ($cardTotal % 10 === 0);
+    }
+}
+
+
+if (! function_exists("resourceDateTimeFormat")){
+    function resourceDateTimeFormat(Carbon $time = null): string
+    {
+        return (! is_null($time)) ? $time->toDateTimeString() : Carbon::now();
+    }
+}
+
+
+
+if (!function_exists("logError")){
+    function logError($error , string $message = "" , array $data  = [] , string $step = ""): void
+    {
+        $step = $step != "" ? $step : "#1";
+        $message = $step . " "  . ($message != "" ? $message : "Error : " .$error->getMessage());
+        $data = count($data) ? $data : ["exception" => $error];
+
+        logger()->error(  $message, $data);
+    }
+}
+
+
+if (!function_exists("json_created")){
+    function json_created(string $message,mixed $data): \Illuminate\Http\JsonResponse{
+        return response()->json([
+            "message" => $message,
+            "data" => $data
+        ],201);
+    }
+}
+
+if (!function_exists("json_success")){
+    function json_success(string $message,mixed $data): \Illuminate\Http\JsonResponse{
+        return response()->json([
+            "message" => $message,
+            "data" => $data
+        ]);
+    }
+}
+
+if (!function_exists("json_error")){
+    function json_error(string $message,$status,mixed $data = null): \Illuminate\Http\JsonResponse{
+        $response = [
+            "message" => $message,
+        ];
+        if ($data)
+            $response["data"] = $data;
+
+        return response()->json($response,$status);
     }
 }

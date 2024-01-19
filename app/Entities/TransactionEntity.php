@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use App\Entities\Enums\TransactionStatusEnums;
 use App\Entities\Enums\TransactionTypeEnums;
+use Illuminate\Support\Carbon;
 
 class TransactionEntity
 {
@@ -16,7 +17,11 @@ class TransactionEntity
         public ?int $dest_card_id,
         public int $fee,
         public TransactionStatusEnums $status,
-        public TransactionTypeEnums $type
+        public TransactionTypeEnums $type,
+        public Carbon $created_at,
+        public Carbon $updated_at,
+        public ?UserCardEntity $card = null,
+        public ?UserCardEntity $dest_card = null,
     )
     {
     }

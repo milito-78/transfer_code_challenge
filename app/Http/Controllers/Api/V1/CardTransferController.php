@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Entities\UserCardEntity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\TransferByCardRequest;
+use App\Http\Resources\Api\V1\TransactionResource;
 use App\Services\Transactions\TransactionService;
 use App\Services\Users\UserService;
 use Exception;
@@ -50,24 +51,16 @@ class CardTransferController extends Controller
         try {
             $transaction = $this->transactionService->transferAmountByCard($origin->account_id,$origin->id,$destination->account_id,$destination->id,$amount);
         }catch (Exception $exception){
-            logger()->error("Error during transaction : " . $exception->getMessage(), ["context" => $exception, "request" => $request]);
-            return response()->json([
-                "message" => "There is a error during transaction. Please try again later."
-            ],500);
+            logError($exception,"Error during transaction : ",["context" => $exception, "request" => $request]);
+            return json_error("There is a error during transaction. Please try again later.",500);
         }
 
         if (!$transaction){
-            return response()->json([
-                "message" => "Transfer is not successful."
-            ],500);
+            return json_error("Transfer is not successful.",500);
         }
+
         //TODO send sms
 
-        return response()->json([
-            "message" => "successfully done",
-            "data" => [
-                "tracking_code" => $transaction->tracking_code
-            ]
-        ],200);
+        return json_created("Successfully created",new TransactionResource($transaction));
     }
 }

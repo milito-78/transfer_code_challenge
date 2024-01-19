@@ -61,14 +61,16 @@ class TransactionRepository implements ITransactionRepository
             return $this->wrapWithEntity($transaction);
         }catch (\Exception $exception){
             DB::rollBack();
-            logger()->error("Error during transaction : ".$exception->getMessage(),["context" => $exception]);
+            logError($exception,"Error during transaction : ",["context" => $exception]);
             return null;
         }
     }
 
     public function getBalanceForAccount($account_id): int
     {
-        return $this->query()->where("account_id" ,$account_id)->sum(DB::raw("CAST( amount AS SIGNED ) * type"));
+        return $this->query()->whereHas("card" ,function ($query) use($account_id){
+            return $query->where("account_id",$account_id);
+        })->sum(DB::raw("CAST( amount AS SIGNED ) * type"));
     }
 
     public function getTransactionsForUsersLimit(array $cards, int $limit): Collection
@@ -79,13 +81,12 @@ class TransactionRepository implements ITransactionRepository
             ->whereIn('t.card_id', $cards)
             ->where('t.num', '<=', $limit)
             ->whereNull('t.reason_id')
+            ->with(["card","destination_card"])
             ->get();
 
-        $transactions->map(function (Transaction $transaction){
+        return $transactions->map(function (Transaction $transaction){
             return $transaction->toEntity();
         });
-
-        return $transactions;
     }
 
     /**

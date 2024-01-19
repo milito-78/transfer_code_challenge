@@ -75,7 +75,7 @@ class UserRepository implements IUserRepository
             ->groupByRaw("user_cards.user_id")
             ->whereNull("transactions.reason_id")
             ->orderBy("tr_count","desc")
-            ->where("transactions.created_at" , ">=" ,now()->subMinutes(10))
+            ->where("transactions.created_at" , ">=" ,now()->subMinutes(1000))
             ->limit(3)
             ->with("user")
             ->get();
