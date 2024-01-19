@@ -73,33 +73,19 @@ class TransactionRepository implements ITransactionRepository
 
     public function getTransactionsForUsersLimit(array $cards, int $limit): Collection
     {
-        $transactions = DB::select("select t.*
-            from (select t.*,
-                         row_number() over (partition by card_id order by created_at desc) as num
-                  from transactions t
-                 ) t
-            where num <= ? and t.card_id in (?) and reason_id is null;",
-            [$limit,implode(",",$cards)]
-        );
+        $transactions = $this->query()
+            ->select('t.*')
+            ->fromRaw('(SELECT t.*, ROW_NUMBER() OVER (PARTITION BY card_id ORDER BY created_at DESC) AS num FROM transactions t) t')
+            ->whereIn('t.card_id', $cards)
+            ->where('t.num', '<=', $limit)
+            ->whereNull('t.reason_id')
+            ->get();
 
-        $data = collect();
-        foreach ($transactions as $transaction){
-            $data->push(new TransactionEntity(
-                $transaction->id,
-                $transaction->amount,
-                $transaction->pure_amount,
-                $transaction->tracking_code,
-                $transaction->card_id,
-                $transaction->destination_card_id,
-                $transaction->fee_amount,
-                TransactionStatusEnums::from($transaction->status_id),
-                TransactionTypeEnums::from($transaction->type),
-                )
-            );
-        }
+        $transactions->map(function (Transaction $transaction){
+            return $transaction->toEntity();
+        });
 
-
-        return $data;
+        return $transactions;
     }
 
     /**

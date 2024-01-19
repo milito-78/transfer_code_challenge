@@ -5,6 +5,7 @@ namespace App\Infrastructure\Database\Mysql\Models;
 use App\Entities\Enums\TransactionStatusEnums;
 use App\Entities\Enums\TransactionTypeEnums;
 use App\Entities\TransactionEntity;
+use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -28,6 +29,11 @@ use Illuminate\Support\Carbon;
 class Transaction extends Model
 {
     use HasFactory;
+
+    protected static function newFactory()
+    {
+        return app()->make(TransactionFactory::class);
+    }
 
     protected $appends = [
         "status"

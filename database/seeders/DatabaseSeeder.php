@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UserAccountSeeder::class,
             UserCardSeeder::class,
+            TransactionSeeder::class,
         ]);
     }
 }

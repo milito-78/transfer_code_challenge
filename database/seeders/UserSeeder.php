@@ -12,18 +12,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //Seed first user
-        $first = User::query()->create([
-            'name'              => "first user",
-            'mobile'            => "091422222222",
-            'password' => bcrypt("password"),
-        ]);
-
-        //Seed second user
-        $second = User::query()->create([
-            'name'              => "second user",
-            'mobile'            => "091411111111",
-            'password' => bcrypt("password_2"),
-        ]);
+        User::factory()->count(5)->create();
     }
 }

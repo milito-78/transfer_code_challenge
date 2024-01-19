@@ -33,12 +33,12 @@ class TopUserTransactionController extends Controller
             $cards->push(...$entity->cards->toArray());
         });
 
-        $transactions   = $this->transactionService->getLimitTransactionsForUsers($cards->toArray(),10);
+        $transactions   = $this->transactionService->getLimitTransactionsForUsers($cards->unique()->toArray(),10);
 
         $users->each(function (UserEntity $entity) use($transactions){
             $found          = $transactions->whereIn("card_id", $entity->cards->toArray());
             $entity->cards  = collect();
-            $entity->transactions = $found;
+            $entity->transactions = $found->values();
         });
 
         return response()->json([
