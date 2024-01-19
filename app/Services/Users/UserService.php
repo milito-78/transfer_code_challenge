@@ -2,9 +2,14 @@
 
 namespace App\Services\Users;
 
+use App\Entities\TransactionEntity;
 use App\Entities\UserCardEntity;
 use App\Infrastructure\Repositories\IUserRepository;
 use App\Entities\UserEntity;
+use App\Infrastructure\Sms\Entities\Enums\MessageEnums;
+use App\Infrastructure\Sms\Entities\Message;
+use App\Infrastructure\Sms\Entities\SmsMessage;
+use App\Jobs\SendSimpleSmsJob;
 use Illuminate\Support\Collection;
 
 class UserService
@@ -57,4 +62,34 @@ class UserService
         return $this->userRepository->getTopThreeUserTransactor();
     }
 
+
+    public function sendTransferCardSmsToUsers(TransactionEntity $transaction, UserEntity $origin, UserEntity $dest)
+    {
+        try {
+            SendSimpleSmsJob::dispatch(
+                new SmsMessage(
+                    $origin->mobile,
+                    new Message(MessageEnums::DecreasedByCard,[
+                        "amount" => $transaction->amount,
+                        "tracking_code" => $transaction->tracking_code
+                    ])
+                )
+            )->onQueue("send_sms"); //We can set queue name inside job class.
+        }catch (\Throwable $exception){
+            logError($exception);
+        }
+
+        try {
+            SendSimpleSmsJob::dispatch(
+                new SmsMessage(
+                    $dest->mobile,
+                    new Message(MessageEnums::IncreasedByCard,[
+                        "amount" => $transaction->amount,
+                    ])
+                )
+            )->onQueue("send_sms"); //We can set queue name inside job class.
+        }catch (\Throwable $exception){
+            logError($exception,step: "#2");
+        }
+    }
 }

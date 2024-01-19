@@ -6,6 +6,8 @@ use App\Infrastructure\Database\Mysql\TransactionRepository;
 use App\Infrastructure\Database\Mysql\UserRepository;
 use App\Infrastructure\Repositories\ITransactionRepository;
 use App\Infrastructure\Repositories\IUserRepository;
+use App\Infrastructure\Sms\Factory as SmsFactory;
+use App\Infrastructure\Sms\Interfaces\Sender as SmsSender;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerRepositories();
 
+        $this->app->bind(SmsSender::class,function (){
+            return (new SmsFactory(config("sms")))->create();
+        });
     }
 
     /**

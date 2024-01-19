@@ -59,7 +59,7 @@ class CardTransferController extends Controller
             return json_error("Transfer is not successful.",500);
         }
 
-        //TODO send sms
+        $this->userService->sendTransferCardSmsToUsers($transaction,$origin->user,$destination->user);
 
         return json_created("Successfully created",new TransactionResource($transaction));
     }
